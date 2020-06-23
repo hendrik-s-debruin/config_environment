@@ -1,0 +1,26 @@
+! Turn right windows button into delete
+remove mod4 = Super_R
+keycode 0x86 = Delete
+
+! Turn Caps Lock into escape
+clear Lock
+keycode 0x42 = Escape
+
+! Turn Right Shift into Backspace
+clear Shift
+keycode 0x3E = BackSpace
+
+! Swap Alt and Windows Key
+! Alt is mod1, winkey is mod4
+remove Mod1 = Alt_L
+remove Mod4 = Super_L
+keysym Alt_L = Super_L
+keysym Super_L = Alt_L
+add Mod1 = Alt_L
+add Mod4 = Super_L
+
+! Turn Caps Lock into Escape (old Version)
+!remove Lock = Caps_Lock
+!!keysym Escape = Caps_Lock
+!keysym Caps_Lock = Escape
+!add Lock = Caps_Lock
