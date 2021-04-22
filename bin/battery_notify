@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+export XDG_RUNTIME_DIR=/run/user/$(id -u)
+
+battery_level=$(acpi | awk '{print $4}' | sed 's/%,//')
+
+if [[ $battery_level -le 20 && $(acpi | grep Discharging) ]]; then
+	notify-send --urgency=critical "battery: $battery_level%"
+fi
