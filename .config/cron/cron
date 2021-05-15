@@ -1,3 +1,2 @@
 */5  * * * * ~/bin/battery_notify
 */20 * * * * XDG_RUNTIME_DIR=/run/user/$(id -u) notify-send woof
-*/5  * * * * /usr/bin/feh --no-fehbg --randomize --bg-scale ~/.wallpapers/*
