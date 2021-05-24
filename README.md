@@ -1,1 +1,0 @@
-.config/cfgmgr/README/README.environment.md
