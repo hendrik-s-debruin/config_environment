@@ -34,10 +34,10 @@ fi
 # with regular mouse buttons
 
 # Bind wacom stylus to just one screen
-if [$1 -eq "left" ]; then
+if [[ "$1" = "left" ]]; then
 	xsetwacom set "Wacom Intuos Pro M Pen stylus" MapToOutput 1920x1080+0+0
 	xsetwacom set "Wacom Intuos Pro M Pen eraser" MapToOutput 1920x1080+0+0
-elif [$1 -eq "right"]; then
+elif [[ "$1" = "right" ]]; then
 	xsetwacom set "Wacom Intuos Pro M Pen stylus" MapToOutput 1920x1080+1930+0
 	xsetwacom set "Wacom Intuos Pro M Pen eraser" MapToOutput 1920x1080+1930+0
 else
