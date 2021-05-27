@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+
+if [ "$#" -ne 1 ]; then
+	echo "Usage: $1 <left|right>"
+	exit 1
+fi
+# ==============================================================================
+# Info
+# ==============================================================================
+# button numbers according to xev
+# (note that buttons 4-7 are reserved for scrolling)
+
+# Top 4:
+# button 1
+# button 2
+# button 3
+# button 8
+
+# Middle:
+# button 13
+# scroll left: button 4
+# scroll right: button 5
+
+# Bottom 4:
+# button 9
+# button 10
+# button 11
+# button 12
+
+# ==============================================================================
+# Remap
+# ==============================================================================
+# First, map buttons to mouse buttons 11 and higher, so as to avoid confusion
+# with regular mouse buttons
+
+# Bind wacom stylus to just one screen
+if [$1 -eq "left" ]; then
+	xsetwacom set "Wacom Intuos Pro M Pen stylus" MapToOutput 1920x1080+0+0
+	xsetwacom set "Wacom Intuos Pro M Pen eraser" MapToOutput 1920x1080+0+0
+elif [$1 -eq "right"]; then
+	xsetwacom set "Wacom Intuos Pro M Pen stylus" MapToOutput 1920x1080+1930+0
+	xsetwacom set "Wacom Intuos Pro M Pen eraser" MapToOutput 1920x1080+1930+0
+else
+	echo "unrecognised argument: $1"
+	exit 1
+fi
+
+# Top 4 buttons
+xsetwacom set "Wacom Intuos Pro M Pad pad" Button 1 11
+xsetwacom set "Wacom Intuos Pro M Pad pad" Button 2 12
+xsetwacom set "Wacom Intuos Pro M Pad pad" Button 3 13
+xsetwacom set "Wacom Intuos Pro M Pad pad" Button 8 14
+
+# middle buttons
+# (leave the scroll wheel as scroll)
+xsetwacom set "Wacom Intuos Pro M Pad pad" Button 13 1 # 15
+
+# Bottom 4 buttons
+xsetwacom set "Wacom Intuos Pro M Pad pad" Button 9  16
+xsetwacom set "Wacom Intuos Pro M Pad pad" Button 10 17
+xsetwacom set "Wacom Intuos Pro M Pad pad" Button 11 18
+xsetwacom set "Wacom Intuos Pro M Pad pad" Button 12 19
+
+# Now, these buttons are remapped using xbindkeys in ~/.xbindkeysrc
+
+# set the presser curve
+xsetwacom set "Wacom Intuos Pro M Pen stylus" PressureCurve 0 0 20 80
+xsetwacom set "Wacom Intuos Pro M Pen eraser" PressureCurve 0 0 20 80
