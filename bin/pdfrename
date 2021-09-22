@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+write_changes=0;
+
+if [[ ! -z $1 ]] && [[ $1 -eq "-f" ]]; then
+	write_changes=1
+fi
+
+readarray -t files < <(find . -name '*.pdf')
+
+for file in "${files[@]}"
+do
+	title=$(pdfinfo "$file" | grep Title | awk '{$1=""; print}' | sed 's/^ *//' | sed 's/  */_/g')
+
+	if [ -z "$title" ]; then
+		title=UNTITLED_$(basename "$file")
+	else
+		title="$title.pdf"
+		title=$(echo $title | sed 's_/_|_g')
+	fi
+
+	datestring=$(pdfinfo "$file" | grep CreationDate | awk '{$1=""; print}')
+
+	if [ -z "$datestring" ]; then
+		date="UNKNOWN"
+	else
+		date=$(date -d "$datestring" +%Y:%m:%d)
+	fi
+
+	dir=$(dirname "$file")
+	fullname="$dir"/"$date"_"$title"
+	if [ $write_changes -eq 1 ]; then
+		mv "$file" "$fullname"
+	else
+		echo $file '<----' $fullname
+	fi
+done
