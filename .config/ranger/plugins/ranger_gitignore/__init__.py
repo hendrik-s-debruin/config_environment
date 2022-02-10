@@ -1,14 +1,17 @@
-from __future__ import absolute_import, division, print_function
-
 import ranger.container.directory
 import subprocess
+import os
 
 ACCEPT_FILE_OLD = ranger.container.directory.accept_file
 
 
 def is_git_ignored(file: str):
+    abs_file_path = os.path.abspath(file)
+    dirname = os.path.dirname(abs_file_path)
     return (
-        subprocess.run(["git", "check-ignore", file], capture_output=True).returncode
+        subprocess.run(
+            ["git", "check-ignore", file], capture_output=True, cwd=dirname
+        ).returncode
         == 0
     )
 
