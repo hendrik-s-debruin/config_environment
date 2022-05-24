@@ -4,4 +4,4 @@ xrandr --auto
 
 export EDITOR=vim
 export TERMINAL=alacritty
-exec i3
+exec /sbin/qtile start
